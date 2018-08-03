@@ -16,26 +16,25 @@ $(document).ready(function(){
     var answerWord;
     var time = 20;
     var intervalId;
-    wins = 0;
-    losses = 0;
+    var wins = 0;
+    var losses = 0;
 
-function triviaGame(){
+var triviaGame = {
 
-    $('.box').show();
 
-    function populateQuestions(){
+    populateQuestions: function(){
         $('#question').text(info[questionNumber].question);
         $('#answerOne').text(info[questionNumber].answer[0]);
         $('#answerTwo').text(info[questionNumber].answer[1]);
         $('#answerThree').text(info[questionNumber].answer[2]);
         $('#answerFour').text(info[questionNumber].answer[3]);
 
-    }
+    },
 
-    function questionChoice(){
-        $('.answer').on('click', function(){
+    questionChoice: function(){
             questionPick = ($(this).attr('id'));
             answerWord = $('#' + questionPick).text();
+
 
             if(answerWord === info[questionNumber].wrongAnswer[0] || answerWord === info[questionNumber].wrongAnswer[1] || answerWord === info[questionNumber].wrongAnswer[2]){
                 losses++;
@@ -45,20 +44,23 @@ function triviaGame(){
                 $('#rightAnswer').text("The right Answer was " + info[questionNumber].rightAnswer);
                 $('#image-Holder').html("<img src='assets/images/trump.gif'>");
 
-                stop();
+                triviaGame.stop();
 
                 time = 20;
 
                 questionNumber++;
-
-                setTimeout(function(){endGame()}, 5000);
-                
              
             
-                populateQuestions();
-                setTimeout(function(){ runTimer() }, 4000);
-                setTimeout(function(){ $('.box-2').hide() }, 5000);
-                setTimeout(function(){ $('.box').show() }, 5000);
+                if(questionNumber < info.length){
+                    triviaGame.populateQuestions();
+                    setTimeout(function(){ triviaGame.runTimer() }, 4000);
+                    setTimeout(function(){ $('.box-2').hide() }, 5000);
+                    setTimeout(function(){ $('.box').show() }, 5000);
+                }
+
+                if(questionNumber === info.length){
+                    setTimeout(function(){endGame()}, 5000);
+                }
 
 
             }
@@ -71,38 +73,39 @@ function triviaGame(){
                 $('#rightAnswer').empty();
                 $('#image-Holder').html(info[questionNumber].image);
 
-                stop();
+                triviaGame.stop();
 
                 time = 20;
 
                 questionNumber++;
 
-                setTimeout(function(){endGame()}, 5000);
-            
-                populateQuestions();
-                setTimeout(function(){ runTimer() }, 4000);
-                setTimeout(function(){ $('.box-2').hide() }, 5000);
-                setTimeout(function(){ $('.box').show() }, 5000);
+                if(questionNumber < info.length){
+                    triviaGame.populateQuestions();
+                    setTimeout(function(){ triviaGame.runTimer() }, 4000);
+                    setTimeout(function(){ $('.box-2').hide() }, 5000);
+                    setTimeout(function(){ $('.box').show() }, 5000);
+                }
+
+                if(questionNumber === info.length){
+                    setTimeout(function(){endGame()}, 5000);
+                }
             }
+            console.log(questionNumber);
+    },
 
-
-        });
-
-    }
-
-    function runTimer(){
+    runTimer: function(){
         clearInterval(intervalId);
-        intervalId = setInterval(decrement,1000);
-    }
+        intervalId = setInterval(triviaGame.decrement,1000);
+    },
 
-    function decrement(){
+    decrement: function(){
         time--;
 
         $('#time').text("TIME REMAINING " + time)
 
         if(time === 0){
             losses++;
-            stop();
+            triviaGame.stop();
             
             $('.box').hide();
             $('.box-2').show();
@@ -114,28 +117,36 @@ function triviaGame(){
 
             questionNumber++;
 
-            setTimeout(function(){endGame()}, 5000);
+            if(questionNumber < info.length){
+                triviaGame.populateQuestions();
+                setTimeout(function(){ triviaGame.runTimer() }, 4000);
+                setTimeout(function(){ $('.box-2').hide() }, 5000);
+                setTimeout(function(){ $('.box').show() }, 5000);
+            }
 
-        
-            populateQuestions();
-            setTimeout(function(){ runTimer() }, 4000);
-            setTimeout(function(){ $('.box-2').hide() }, 5000);
-            setTimeout(function(){ $('.box').show() }, 5000);
+            if(questionNumber === info.length){
+                setTimeout(function(){endGame()}, 5000);
+            }
 
         }
-    }
+    },
 
-    function stop(){
+    stop: function(){
         clearInterval(intervalId);
-    }
+    },
 
-    runTimer();
-    populateQuestions();
-    questionChoice();
+    startGame: function() {
+        $('.box').hide();
+        $('.box').show();
+
+        $('.endGame').hide();
+        triviaGame.runTimer();
+        triviaGame.populateQuestions();
+        triviaGame.questionChoice();
+    }
 }
 
 function endGame(){
-    if (questionNumber === info.length){
         $('.box-2').hide();
         $('.endGame').show();
 
@@ -143,25 +154,23 @@ function endGame(){
         $('#wrong').text("Wrong Answers " + losses);
         $('#restart').text("RESTART");
 
-        $('#restart').on('click',function(){
-            questionNumber = 0;
-            time = 20;
-            wins = 0;
-            losses = 0;
+        questionNumber = 0;
+        time = 20;
+        wins = 0;
+        losses = 0;
+        answerWord = "";
+        questionPick = "";
 
-
-            $('.endGame').hide();
-            triviaGame();
-        })
-
-    }
 }
+
+$('#restart').on('click', triviaGame.startGame);
 
 $('#startButton').on('click', function(){
     $('.box-1').hide();
+    triviaGame.startGame();
+});
 
-    triviaGame();
-})
+$('.answer').on('click', triviaGame.questionChoice);
 
 
 
