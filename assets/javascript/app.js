@@ -20,6 +20,9 @@ $(document).ready(function(){
     losses = 0;
 
 function triviaGame(){
+
+    $('.box').show();
+
     function populateQuestions(){
         $('#question').text(info[questionNumber].question);
         $('#answerOne').text(info[questionNumber].answer[0]);
@@ -32,13 +35,9 @@ function triviaGame(){
     function questionChoice(){
         $('.answer').on('click', function(){
             questionPick = ($(this).attr('id'));
-            console.log(questionPick);
             answerWord = $('#' + questionPick).text();
-            console.log(answerWord);
-            console.log(info[questionNumber].wrongAnswer[0]);
 
             if(answerWord === info[questionNumber].wrongAnswer[0] || answerWord === info[questionNumber].wrongAnswer[1] || answerWord === info[questionNumber].wrongAnswer[2]){
-                console.log("that is the wrong answer");
                 losses++;
                 $('.box').hide();
                 $('.box-2').show();
@@ -51,17 +50,21 @@ function triviaGame(){
                 time = 20;
 
                 questionNumber++;
+
+                setTimeout(function(){endGame()}, 5000);
+                
+             
             
                 populateQuestions();
                 setTimeout(function(){ runTimer() }, 4000);
                 setTimeout(function(){ $('.box-2').hide() }, 5000);
                 setTimeout(function(){ $('.box').show() }, 5000);
 
+
             }
 
             if(answerWord === info[questionNumber].rightAnswer){
                 wins++
-                console.log("that is the right answer");
                 $('.box').hide();
                 $('.box-2').show();
                 $('#rightOrWrong').text("CORRECT!!");
@@ -73,6 +76,8 @@ function triviaGame(){
                 time = 20;
 
                 questionNumber++;
+
+                setTimeout(function(){endGame()}, 5000);
             
                 populateQuestions();
                 setTimeout(function(){ runTimer() }, 4000);
@@ -109,12 +114,13 @@ function triviaGame(){
 
             questionNumber++;
 
+            setTimeout(function(){endGame()}, 5000);
+
         
             populateQuestions();
             setTimeout(function(){ runTimer() }, 4000);
             setTimeout(function(){ $('.box-2').hide() }, 5000);
             setTimeout(function(){ $('.box').show() }, 5000);
-            console.log("TIMES UP");
 
         }
     }
@@ -123,18 +129,40 @@ function triviaGame(){
         clearInterval(intervalId);
     }
 
-
     runTimer();
     populateQuestions();
     questionChoice();
 }
 
+function endGame(){
+    if (questionNumber === info.length){
+        $('.box-2').hide();
+        $('.endGame').show();
+
+        $('#correct').text("Correct Answers " + wins);
+        $('#wrong').text("Wrong Answers " + losses);
+        $('#restart').text("RESTART");
+
+        $('#restart').on('click',function(){
+            questionNumber = 0;
+            time = 20;
+            wins = 0;
+            losses = 0;
+
+
+            $('.endGame').hide();
+            triviaGame();
+        })
+
+    }
+}
+
 $('#startButton').on('click', function(){
     $('.box-1').hide();
-    $('.box').show();
 
     triviaGame();
 })
+
 
 
 

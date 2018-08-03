@@ -85,27 +85,6 @@ h4{
      
 }
 
-/* .answer{
-    width:40%;
-    margin-left:30%;
-    border-radius: 10px;
-
-    position: relative;
-    margin-bottom: 10px;
-  
- 
-    box-shadow: 0 10px 0 0 #6B2A4A;
-  
-  
-    display: block;
-    background: #a47;
-    color: #eee;
-    padding: 1em 2em;
-    cursor: pointer;
-    font-size: 25px;
-    opacity: 0.9;
-} */
-
 .answer{
     background:#1AAB8A;
     color:#fff;
@@ -121,3 +100,8 @@ h4{
   .answer:hover{
     background:#fff;
     color:#1AAB8A;
+  }
+
+  .endGame{
+      margin-top:20%;
+  }
