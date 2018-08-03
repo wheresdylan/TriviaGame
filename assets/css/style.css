@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.box, .box-2{
+    border:2px solid black;
+    margin-top:7%;
+    padding-top:40px;
+    height:680px;
+  
+}
+h1{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-shadow: #EDEDED 3px 2px 0;
+    position: relative;
+
+    text-shadow: 0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+}
+
+h2{
+    text-align: center;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1px;
+    font-size:40px;
+}
+
+h3{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    font-size:35px;
+
+    text-shadow: 0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+}
+
+h4{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1px;
+    font-size:45px;
+}
+
+#image-Holder img{
+        height: 275px;
+        left: 31%;
+        position: absolute;
+        width: 450px;
+     
+}
+
+/* .answer{
+    width:40%;
+    margin-left:30%;
+    border-radius: 10px;
+
+    position: relative;
+    margin-bottom: 10px;
+  
+ 
+    box-shadow: 0 10px 0 0 #6B2A4A;
+  
+  
+    display: block;
+    background: #a47;
+    color: #eee;
+    padding: 1em 2em;
+    cursor: pointer;
+    font-size: 25px;
+    opacity: 0.9;
+} */
+
+.answer{
+    background:#1AAB8A;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:60px;
+    cursor:pointer;
+    transition:800ms ease all;
+    width:40%;
+    margin-left:30%;
+    border-radius: 10px;
+  }
+  .answer:hover{
+    background:#fff;
+    color:#1AAB8A;
